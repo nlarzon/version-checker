@@ -1,0 +1,19 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app: version-checker
+  name: version-checker
+spec:
+  jobLabel: component
+  selector:
+    matchLabels:
+      app: version-checker
+  namespaceSelector:
+    matchNames:
+      - "version-checker"
+  endpoints:
+    - port: web
+      interval: 15s
+      bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
